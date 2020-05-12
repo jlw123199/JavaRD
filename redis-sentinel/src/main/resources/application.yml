@@ -1,0 +1,45 @@
+
+server:
+  port: 1238
+spring:
+  application:
+    name: redissentinel
+#  redis:
+#    host: 10.0.0.192
+#    port: 6379
+#    database: 0
+#    password: 123456
+
+  redis:
+    connectionMode: sentinel
+#    password: 123456
+    password: 1234
+    database: 0
+    jedis:
+      pool:
+        max-idle: 300
+        min-idle: 50
+        max-total: 600
+        max-active: 100
+        max-wait: 6000
+        testonborrow: true
+        maxwait: 1000
+#    lettuce:
+#      pool:
+#        max-idle: 300
+#        min-idle: 50
+#        max-total: 600
+#        max-active: 100
+#        max-wait: 6000
+#        testonborrow: true
+#        maxwait: 1000
+
+#    sentinel:
+#      master: 51master
+#      nodes: 10.0.0.190:26379,10.0.0.192:26379,10.0.0.196:26379
+
+    sentinel:
+      master: mymaster
+      nodes: 10.0.0.106:5379,10.0.0.106:5380,10.0.0.106:5381
+#      nodes: 10.0.0.106:26379,10.0.0.106:26380,10.0.0.106:26381
+

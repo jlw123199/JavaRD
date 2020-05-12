@@ -24,9 +24,9 @@ public class HitController {
     String hitCounter(){
 
         String reuslt = "";
-        synchronized (firstFrameLock) {
+//        synchronized (firstFrameLock) {
             reuslt = hitService.hit();
-        }
+//        }
 
         return  reuslt;
     }
@@ -36,11 +36,15 @@ public class HitController {
     String hitCounter2() {
 
         String reuslt = "";
-        lock.lock();
+//        lock.lock();
         reuslt = hitService.hit();
-        lock.unlock();
+//        lock.unlock();
 
         return reuslt;
     }
 }
+/*
+
+
+ */
 

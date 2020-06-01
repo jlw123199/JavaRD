@@ -12,7 +12,12 @@ import java.util.Map;
 @SpringBootApplication
 public class TransactionApplication {
 
+    public static ConfigurableApplicationContext getContext() {
+        return context;
+    }
+
     static ConfigurableApplicationContext context = null;
+
 
     public static void main(String[] args) {
         context = SpringApplication.run(TransactionApplication.class, args);

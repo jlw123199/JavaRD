@@ -14,6 +14,7 @@ import service.UserService;
 
 
 import javax.annotation.Resource;
+import java.sql.*;
 import java.util.List;
 import java.util.Map;
 
@@ -23,13 +24,13 @@ import java.util.Map;
 public class IndexController {
 
     @Resource
-    BusinessService businessService ;
+    BusinessService businessService;
 
-    BusinessServiceImpl businessServiceImpl = new BusinessServiceImpl() ;
+    BusinessServiceImpl businessServiceImpl = new BusinessServiceImpl();
 
     @RequestMapping("/greed")
     @Transactional
-    public String greed(String name){
+    public String greed(String name) {
         testMysql();
         testInsertTransaction();
 //        businessServiceImpl.insertTransactionVerificationInPrivateMethodInterface();
@@ -46,16 +47,16 @@ public class IndexController {
 
     @RequestMapping("/inject")
     @Transactional
-    public String injectTest(String name){
+    public String injectTest(String name) {
 
-        String name1 = userService.findUserByID( "test");
+        String name1 = userService.findUserByID("test");
 
-        String name2  = userService2.findUserByID("test");
+        String name2 = userService2.findUserByID("test");
 
-        return "Hi First: " + name1  + " Second: " + name2;
+        return "Hi First: " + name1 + " Second: " + name2;
     }
 
-    public void testMysql(){
+    public void testMysql() {
 
         JdbcTemplate jdbcTemplate = TransactionApplication.context.getBean(JdbcTemplate.class);
 
@@ -66,11 +67,43 @@ public class IndexController {
         System.out.println(result);
     }
 
-    public void testInsertTransaction(){
+    public void testInsertTransaction() {
         boolean insertResult = businessService.insertTransactionVerification();
         boolean updateResult = businessService.updateTransactionVerification();
         System.out.println(insertResult);
         System.out.println(updateResult);
 
     }
+
+    @RequestMapping("/testOracle")
+    public String testOracle() {
+        String url = "jdbc:oracle:thin:@15r262l208.51mypc.cn:1521:eflag";
+        String username = "qesms";
+        String password = "qesms";
+        String driver = "oracle.jdbc.driver.OracleDriver";
+        String reuslt = null;
+
+        try {
+//            Class.forName(driver);
+            Connection con = DriverManager.getConnection(url, username, password);
+            Statement state = con.createStatement();   //容器
+            String sql = "select * from item_tab";   //SQL语句
+            ResultSet resultSet = state.executeQuery(sql);         //将sql语句上传至数据库执行
+            while (resultSet.next()) {
+                reuslt +=  resultSet.getString(1) + "--" + resultSet.getString(9) + "\r\n" ;
+                System.out.println(resultSet.getString(1) + "--" + resultSet.getString(9));
+            }
+            con.close();//关闭通道
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return reuslt;
+    }
+
 }
+
+/*
+
+
+ */

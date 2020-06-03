@@ -3,10 +3,12 @@ package com.example.transaction;
 import com.example.transaction.ServicesNS.BusinessService;
 import com.example.transaction.ServicesNS.BusinessServiceImpl;
 import com.example.transaction.TransactionApplication;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import service.UserService;
 //import service.UserService;
 
 
@@ -34,14 +36,14 @@ public class IndexController {
     }
 
 
-//    @Resource
-//    UserService userService;
+    @Autowired
+    UserService userService;
 
     @RequestMapping("/inject")
     @Transactional
     public String injectTest(String name){
 
-        String name1 = "test";
+        String name1 = userService.findUserByID( "test");
         return "Hi " + name1;
     }
 

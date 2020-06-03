@@ -4,6 +4,7 @@ import com.example.transaction.ServicesNS.BusinessService;
 import com.example.transaction.ServicesNS.BusinessServiceImpl;
 import com.example.transaction.TransactionApplication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,12 +40,19 @@ public class IndexController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    @Qualifier("second")
+    UserService userService2;
+
     @RequestMapping("/inject")
     @Transactional
     public String injectTest(String name){
 
         String name1 = userService.findUserByID( "test");
-        return "Hi " + name1;
+
+        String name2  = userService2.findUserByID("test");
+
+        return "Hi First: " + name1  + " Second: " + name2;
     }
 
     public void testMysql(){

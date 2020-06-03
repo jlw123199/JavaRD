@@ -5,8 +5,9 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import service.UserService;
 
-@Service
+@Service("first")
 @Primary
+
 public class UserServiceImplement implements UserService {
     @Override
     public String findUserByID(String userID) {

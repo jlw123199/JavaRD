@@ -101,6 +101,32 @@ public class IndexController {
         return reuslt;
     }
 
+    @RequestMapping("/testMysql")
+    public String testMysqlConnect() {
+        String url = "jdbc:mysql://localhost:3306/test";
+        String username = "jialiwei";
+        String password = "jialiwei";
+        String driver = "com.mysql.jdbc.Driver";
+        String reuslt = null;
+
+        try {
+//            Class.forName(driver);
+            Connection con = DriverManager.getConnection(url, username, password);
+            Statement state = con.createStatement();   //容器
+            String sql = "select * from testt1";   //SQL语句
+            ResultSet resultSet = state.executeQuery(sql);         //将sql语句上传至数据库执行
+            while (resultSet.next()) {
+                reuslt +=  resultSet.getString(2) + "--" + resultSet.getString(3) + "\r\n" ;
+                System.out.println(resultSet.getString(2) + "--" + resultSet.getString(3));
+            }
+            con.close();//关闭通道
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return reuslt;
+    }
+
 }
 
 /*

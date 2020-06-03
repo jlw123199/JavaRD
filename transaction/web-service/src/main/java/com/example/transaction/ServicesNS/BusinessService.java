@@ -1,4 +1,4 @@
-package com.example.transaction.Services;
+package com.example.transaction.ServicesNS;
 
 
 public interface BusinessService {

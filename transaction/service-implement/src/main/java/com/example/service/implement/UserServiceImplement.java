@@ -7,7 +7,6 @@ import service.UserService;
 
 @Service("first")
 @Primary
-
 public class UserServiceImplement implements UserService {
     @Override
     public String findUserByID(String userID) {

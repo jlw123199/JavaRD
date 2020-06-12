@@ -14,7 +14,12 @@ import service.UserService;
 
 
 import javax.annotation.Resource;
+import java.security.AccessControlContext;
+import java.security.AccessController;
+import java.security.Permission;
+import java.security.ProtectionDomain;
 import java.sql.*;
+import java.util.AbstractCollection;
 import java.util.List;
 import java.util.Map;
 
@@ -28,15 +33,32 @@ public class IndexController {
 
     BusinessServiceImpl businessServiceImpl = new BusinessServiceImpl();
 
-    @RequestMapping("/greed")
+
+
+    @RequestMapping("/verifyPermission")
     @Transactional
-    public String greed(String name) {
+    public String verifyPermission(String name) {
+
+        AccessControlContext accessControlContext = AccessController.getContext();
+
+        Permission permission = new RuntimePermission("loadLibrary.*");
+
+        accessControlContext.checkPermission(permission);
+
+        return "Hi " + name;
+    }
+
+    @RequestMapping("/transaction")
+    @Transactional
+    public String transaction(String name) {
         testMysql();
         testInsertTransaction();
 //        businessServiceImpl.insertTransactionVerificationInPrivateMethodInterface();
         return "Hi " + name;
     }
 
+    @Autowired
+    AbstractCollection abstractCollection;
 
     @Autowired
     UserService userService;
@@ -112,7 +134,11 @@ public class IndexController {
         try {
 //            Class.forName(driver);
             Connection con = DriverManager.getConnection(url, username, password);
+
+
             Statement state = con.createStatement();   //容器
+
+
             String sql = "select * from testt1";   //SQL语句
             ResultSet resultSet = state.executeQuery(sql);         //将sql语句上传至数据库执行
             while (resultSet.next()) {
@@ -130,6 +156,8 @@ public class IndexController {
 }
 
 /*
+
+
 
 
  */

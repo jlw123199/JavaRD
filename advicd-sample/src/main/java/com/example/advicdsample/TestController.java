@@ -1,5 +1,6 @@
 package com.example.advicdsample;
 
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,9 +25,10 @@ public class TestController {
 
     @GetMapping(value = "/test")
     @ResponseBody
-    public Map<String,String> test(){
+    public Map<String,String> test(ModelMap modelMap){
         Map<String,String> result = new LinkedHashMap<String, String>();
         result.put("aa","bb");
+        result.put("test",modelMap.get("author").toString());
         return result;
     }
 }

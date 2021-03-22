@@ -1,8 +1,8 @@
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**
-!**/src/test/**
+!**/src/main/**/target/
+!**/src/test/**/target/
 
 ### STS ###
 .apt_generated
@@ -26,6 +26,28 @@ target/
 /nbdist/
 /.nb-gradle/
 build/
+!**/src/main/**/build/
+!**/src/test/**/build/
 
 ### VS Code ###
 .vscode/
+.mvn/
+actuator/.gitignore
+actuator/.mvn/
+actuator/mvnw
+actuator/mvnw.cmd
+actuator/pom.xml
+actuator/src/main/java/com/xl/actuator/ActuatorApplication.java
+actuator/src/main/resources/
+actuator/src/test/
+advicd-sample/src/main/java/com/example/advicdsample/CustomControllerAdviceC.java
+advicd-sample/src/main/resources/static/
+advicd-sample/src/main/resources/templates/
+md5/out/
+md5/src/
+mvnw
+mvnw.cmd
+pom.xml
+src/main/java/com/xl/
+src/test/java/com/xl/
+velocityapp/src/test/
